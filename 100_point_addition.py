@@ -80,6 +80,10 @@ def isOnCurve(Q):
     (X, Y) = Q
     return ((X ** 3 + A * X ** 2 + X) % p) == ((B * Y**2) % p)
 
+#
+# tests
+#
+
 Q1_aff = None
 res1_None = add_affine(Q1_aff, Q1_aff)
 print(res1_None)
