@@ -30,9 +30,35 @@ With the point addition in projective coordinates it is to be noted that the add
 
 The point addition and doubling for X25519 is implemented in *100_point_addition.py* along with tests for addition/doubling with affine and projective coordinates.
 
+**Part 1: Point multiplication**
+
+The point multiplication uses the Montgomery ladder, which controls point addition and point doubling by the bit representation of the scalar. The pseudo code of the Montgomery ladder can be found e.g. in [Montgomery ladder][2_1] on Wikipedia or in [Montgomery curves and their arithmetic][1_1], chapter 4.1 The ladder in a group:
+
+```
+  R0 ← 0
+  R1 ← P
+  for i from m downto 0 do
+      if di = 0 then
+          R1 ← point_add(R0, R1)
+          R0 ← point_double(R0)
+      else
+          R0 ← point_add(R0, R1)
+          R1 ← point_double(R1)
+  return R0
+```
+
+In the algorithm, R1 = R0 + P is always satisfied, which is exactly the constraint that holds for the point addition, so this relation can be used here.
+
+So that no information is leaked (side channel attacks), the point multiplication must be time-constant. For this it is necessary that the *same* operations are performed for an unset bit and a set bit. This is fulfilled in the Montgomery Ladder. Note that in the end only R0 is returned, not R1. R1 is finally only needed to realize identical operations for 0- and 1-bits.  
+Furthermore, the implementation must be time-constant, regardless of which is the most significant bit. Therefore, in this implementation, a fixed bit length (256 bits) is used by padding with leading 0 bits. The algorithm of X25519 (and also Ed25519) additionally *implicitly* set the most significant bit to 0 and the second most significant bit to 1 (see clamping in next chapter), so that even insecure implementations that depend on which is the most significant bit are time-constant in this respect.
+
+*200_point_multiplication.py* contains an implementation of the point multiplication based on the Montgomery Ladder and test cases.
+
 [i_1]: https://en.wikipedia.org/wiki/Montgomery_curve
 [i_2]: https://datatracker.ietf.org/doc/html/rfc7748
 
 [1_1]: https://inria.hal.science/hal-01483768/document
 [1_2]: https://en.wikipedia.org/wiki/Montgomery_curve#Montgomery_arithmetic
+
+[2_1]: https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder
 
