@@ -85,6 +85,8 @@ Clamping and tests are implemented in *300_clamping.py*.
 
 For key generation, the secret key s is generated as a random 32 bytes sequence. From this the key is derived by first clamping the secret key and using the result s_clamped to perform a point multiplication with the generator point G: public = s_clamped * G.  
 
+*400_key_generation.py* contains the implementation of the key generation and tests.
+
 [i_1]: https://en.wikipedia.org/wiki/Montgomery_curve
 [i_2]: https://datatracker.ietf.org/doc/html/rfc7748
 
