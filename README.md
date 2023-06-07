@@ -54,6 +54,25 @@ Furthermore, the implementation must be time-constant, regardless of which is th
 
 *200_point_multiplication.py* contains an implementation of the point multiplication based on the Montgomery Ladder and test cases.
 
+**Part 3: Clamping**
+
+Clamping is the modification of certain bits in the scalar of the point multiplication. The purpose is to make the algorithm more secure and robust.
+
+```
+      0. byte (ls byte), 1. byte, ...		  31. byte (ms byte)
+      _ _ _ _   _ 0 0 0           		    0 1 _ _   _ _ _ _
+ ms bit               ls bit         ms bit               ls bit
+```
+
+Clamping sets the two most significant bits to 0 and 1 (M1) and the three least significant bits to 0 (M2). The purpose of M1 is to neutralize the danger of bad implementations of point multiplications whose time behavior depends on which is the most significant bit, by giving each key per definition the same most significant bit.  
+M2 is equivalent to multiplication by 8. curve25519 and edwards25519 both have a cofactor of 8 and therefore have small order subgroups (of order 1, 2, 4 and 8). If a point from such a group is multiplied by 8, the neutral element is obtained. If the other side sends a key from such a subgroup, the neutral element would therefore be generated during the generation of the shared secret: `priv * small_order_pub = priv' * 8 * small_order_pub = 0`, by which such a point would be recognized (and thus a possible small subgroup attack).
+
+More details about clamping can be found in:  
+[*An Explainer On Ed25519 Clamping*][3_1]  
+[*What’s the Curve25519 clamping all about?*][3_2]
+
+Clamping and tests are implemented in *300_clamping.py*.
+
 [i_1]: https://en.wikipedia.org/wiki/Montgomery_curve
 [i_2]: https://datatracker.ietf.org/doc/html/rfc7748
 
@@ -61,4 +80,7 @@ Furthermore, the implementation must be time-constant, regardless of which is th
 [1_2]: https://en.wikipedia.org/wiki/Montgomery_curve#Montgomery_arithmetic
 
 [2_1]: https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder
+
+[3_1]: https://www.jcraige.com/an-explainer-on-ed25519-clamping
+[3_2]: https://neilmadden.blog/2020/05/28/whats-the-curve25519-clamping-all-about/
 
