@@ -87,6 +87,8 @@ For key generation, the secret key s is generated as a random 32 bytes sequence.
 
 *400_key_generation.py* contains the implementation of the key generation and tests.
 
+-----------------
+
 **Part 5: Key agreement**
 
 The key agreement is based on point multiplication as well: If secA/pubA are the key pair of side A and secB/pubB are the key pair of side B, then after an exchange of the public keys side A can generate the key agreement with secA * pubB and side B with secB * pubA. Both key agreements are equal because secA * pubB = secA * (secB * G) = secB * (secA * G) = secB * pubA.
