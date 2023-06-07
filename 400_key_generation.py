@@ -74,6 +74,10 @@ def le_encode_to_bytes(number):
 def le_decode_to_number(number_b):
     return int.from_bytes(number_b, "little")
 
+import os
+def generate_secret_key():
+    return os.urandom(32)
+
 def secret_clamp(secret_key_b):
     if len(secret_key_b) != 32:
         raise Exception("Bad size of secret key")
