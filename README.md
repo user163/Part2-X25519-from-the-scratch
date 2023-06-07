@@ -15,6 +15,8 @@ l = 2**252 + 27742317777372353535851937790883648493 # order of G, = order of sub
 
 X25519 is described in [RFC 7748][i_2].
 
+-----------------
+
 **Part 1: Point addition**
 
 The addition and the doubling of points in affine coordinates is described e.g. in [*Montgomery curves and their arithmetic*][1_1], *chapter 2.2 The group law*.
@@ -29,6 +31,8 @@ As a result, a transformation from affine to projective coordinates is possible,
 With the point addition in projective coordinates it is to be noted that the addition of two points Q1 and Q2 takes place under the secondary condition Q2 = Q1 + P with known P. This is not really a problem in connection with the Montgomery Ladder for point multiplication, since there the individual additions are executed under exactly this condition (see Montgomery Ladder in the next chapter).
 
 The point addition and doubling for X25519 is implemented in *100_point_addition.py* along with tests for addition/doubling with affine and projective coordinates.
+
+-----------------
 
 **Part 2: Point multiplication**
 
@@ -53,6 +57,8 @@ So that no information is leaked (side channel attacks), the point multiplicatio
 Furthermore, the implementation must be time-constant, regardless of which is the most significant bit. Therefore, in this implementation, a fixed bit length (256 bits) is used by padding with leading 0 bits. The algorithm of X25519 (and also Ed25519) additionally *implicitly* set the most significant bit to 0 and the second most significant bit to 1 (see clamping in next chapter), so that even insecure implementations that depend on which is the most significant bit are time-constant in this respect.
 
 *200_point_multiplication.py* contains an implementation of the point multiplication based on the Montgomery Ladder and test cases.
+
+-----------------
 
 **Part 3: Clamping**
 
