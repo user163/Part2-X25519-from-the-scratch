@@ -87,6 +87,13 @@ For key generation, the secret key s is generated as a random 32 bytes sequence.
 
 *400_key_generation.py* contains the implementation of the key generation and tests.
 
+**Part 5: Key agreement**
+
+The key agreement is based on point multiplication as well: If secA/pubA are the key pair of side A and secB/pubB are the key pair of side B, then after an exchange of the public keys side A can generate the key agreement with secA * pubB and side B with secB * pubA. Both key agreements are equal because secA * pubB = secA * (secB * G) = secB * (secA * G) = secB * pubA.
+
+*500_key_agreement.py* implements the key agreement and checks the implementation with a test vector from [RFC 7748, chapter *6.1. Curve25519*][5_1].
+
+
 [i_1]: https://en.wikipedia.org/wiki/Montgomery_curve
 [i_2]: https://datatracker.ietf.org/doc/html/rfc7748
 
@@ -98,3 +105,4 @@ For key generation, the secret key s is generated as a random 32 bytes sequence.
 [3_1]: https://www.jcraige.com/an-explainer-on-ed25519-clamping
 [3_2]: https://neilmadden.blog/2020/05/28/whats-the-curve25519-clamping-all-about/
 
+[5_1]: https://datatracker.ietf.org/doc/html/rfc7748#section-6.1
