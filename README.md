@@ -17,10 +17,22 @@ X25519 is described in [RFC 7748][i_2].
 
 **Part 1: Point addition**
 
+The addition and the doubling of points in affine coordinates is described e.g. in [*Montgomery curves and their arithmetic*][1_1], *chapter 2.2 The group law*.
 
+Besides, a description in projective coordinates is possible, see [*Montgomery arithmetic*][1_2] in *Wikipedia* or [*Montgomery curves and their arithmetic*][1_1], chapters *3.2 Point addition* and *3.3 Point doubling*. 
 
+While with the affine coordinates the x coordinate of the added/doubled point depends on the y coordinate, with the projective coordinates the X coordinate of the added/doubled point does not depend on the Y (and Z) coordinate. Since for the calculation to X25519 the Y coordinate is not needed, this is omitted. Thereby, however, information is lost, since from the projective coordinates the affine y coordinate cannot be derived unambiguously (but only +y, -y), see [*Montgomery arithmetic*][1_2] in Wikipedia.
+
+The calculations with the affine coordinates contain in contrast to those with the projective coordinates modular divisions and are therefore less performat than those of the projective coordinates, which is why projective coordinates are used in the calculations for X25519. The associated shortcoming of not being able to uniquely determine the affine y coordinate is irrelevant because the y coordinate is not needed for the calculations to X25519. 
+As a result, a transformation from affine to projective coordinates is possible, but conversely only the affine x coordinate can be determined from the projective coordinates. This representation is called *compressed* in the following.
+
+With the point addition in projective coordinates it is to be noted that the addition of two points Q1 and Q2 takes place under the secondary condition Q2 = Q1 + P with known P. This is not really a problem in connection with the Montgomery Ladder for point multiplication, since there the individual additions are executed under exactly this condition (see Montgomery Ladder in the next chapter).
+
+The point addition and doubling for X25519 is implemented in *100_point_addition.py* along with tests for addition/doubling with affine and projective coordinates.
 
 [i_1]: https://en.wikipedia.org/wiki/Montgomery_curve
 [i_2]: https://datatracker.ietf.org/doc/html/rfc7748
 
+[1_1]: https://inria.hal.science/hal-01483768/document
+[1_2]: https://en.wikipedia.org/wiki/Montgomery_curve#Montgomery_arithmetic
 
