@@ -30,7 +30,7 @@ With the point addition in projective coordinates it is to be noted that the add
 
 The point addition and doubling for X25519 is implemented in *100_point_addition.py* along with tests for addition/doubling with affine and projective coordinates.
 
-**Part 1: Point multiplication**
+**Part 2: Point multiplication**
 
 The point multiplication uses the Montgomery ladder, which controls point addition and point doubling by the bit representation of the scalar. The pseudo code of the Montgomery ladder can be found e.g. in [Montgomery ladder][2_1] on Wikipedia or in [Montgomery curves and their arithmetic][1_1], chapter 4.1 The ladder in a group:
 
