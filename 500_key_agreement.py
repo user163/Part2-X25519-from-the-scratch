@@ -100,7 +100,7 @@ def get_shared_secret(secret_key_b, public_key_b):
 
 '''
 # testvector from RFC 7748, 6.1. Curve25519
-Alice's private key, a:
+   Alice's private key, a:
      77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a
    Alice's public key, X25519(a, 9):
      8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a
