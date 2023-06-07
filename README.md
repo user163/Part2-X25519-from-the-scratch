@@ -65,8 +65,8 @@ Furthermore, the implementation must be time-constant, regardless of which is th
 Clamping is the modification of certain bits in the scalar of the point multiplication. The purpose is to make the algorithm more secure and robust.
 
 ```
-      0. byte (ls byte), 1. byte, ...		  31. byte (ms byte)
-      _ _ _ _   _ 0 0 0           		    0 1 _ _   _ _ _ _
+      0. byte (ls byte), 1. byte, ...     31. byte (ms byte)
+      _ _ _ _   _ 0 0 0                   0 1 _ _   _ _ _ _
  ms bit               ls bit         ms bit               ls bit
 ```
 
